@@ -70,12 +70,12 @@ app.post('/api/shorturl', async(req, res) => {
 //GET route
 app.get('/api/shorturl/:short_url', async (req, res) => {
   const shorturl = req.params.short_url;
-  const foundUrl = await Url.findOne({ short_url: shorturl });
+  const foundUrl = await Url.findOne({ short_url: Number(shorturl) });
 
   if (foundUrl) {
-    res.redirect(foundUrl.original_url);
+    return res.redirect(foundUrl.original_url);
   } else {
-    res.json({ error: "No short URL found for your input" });
+    return res.json({ error: "No short URL found for your input" });
   }
 });
 
